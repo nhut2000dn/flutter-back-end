@@ -348,7 +348,7 @@ class _NovelsPageState extends State<NovelsPage> with TickerProviderStateMixin {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Text(
-                        "Number of Novels: ${tablesProvider.usersTableSource.length}"),
+                        "Number of Novels: ${tablesProvider.novelsTableSource.length}"),
                   ),
                 ],
               ),

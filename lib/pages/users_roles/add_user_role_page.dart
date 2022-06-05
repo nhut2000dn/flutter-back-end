@@ -37,8 +37,12 @@ class _AddUserRolePageState extends State<AddUserRolePage> {
   }
 
   Future<bool> addUserRoleToFirebase(String role, String description) async {
-    return await _userRoleServices
-        .addUserRole({'role': role, 'description': description});
+    if (role == '' || description == '') {
+      return false;
+    } else {
+      return await _userRoleServices
+          .addUserRole({'role': role, 'description': description});
+    }
   }
 
   @override
@@ -203,7 +207,8 @@ class _AddUserRolePageState extends State<AddUserRolePage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Add User Role failed!")));
+                                content: Text(
+                                    "Add User Role failed! Invalid form")));
                       }
                     },
                     child: Padding(

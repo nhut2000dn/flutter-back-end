@@ -109,15 +109,42 @@ class _GenresPageState extends State<GenresPage> {
                     color: Colors.red[700],
                   ),
                   onTap: () async {
-                    bool check = await _genreService.deleteGenre(row['id']);
-                    if (check) {
-                      tablesProvider.removeFromTable(Tables.genres, value);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Delete Genre Succesful!"),
-                        ),
-                      );
-                    }
+                    Widget cancelButton = TextButton(
+                      child: Text("Cancel"),
+                      onPressed: () {},
+                    );
+                    Widget continueButton = TextButton(
+                      child: Text("Continue"),
+                      onPressed: () async {
+                        bool check = await _genreService.deleteGenre(row['id']);
+                        if (check) {
+                          tablesProvider.removeFromTable(Tables.genres, value);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Delete Genre Succesful!"),
+                            ),
+                          );
+                        }
+                      },
+                    );
+
+                    // set up the AlertDialog
+                    AlertDialog alert = AlertDialog(
+                      title: Text("Comfirm"),
+                      content: Text("Are you sure delete"),
+                      actions: [
+                        cancelButton,
+                        continueButton,
+                      ],
+                    );
+
+                    // show the dialog
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return alert;
+                      },
+                    );
                   },
                 ),
                 InkWell(
@@ -161,7 +188,7 @@ class _GenresPageState extends State<GenresPage> {
                               .navigateTo(AddGenreRoute);
                         },
                         icon: const Icon(Icons.add),
-                        label: const Text("ADD CATEGORY"))
+                        label: const Text("ADD GENRE"))
                     : null,
                 actions: [
                   if (tablesProvider.isSearch)

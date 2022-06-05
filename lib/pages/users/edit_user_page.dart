@@ -37,6 +37,7 @@ class _EditUserPageState extends State<EditUserPage> {
   final FocusNode myFocusNode = FocusNode();
   late TextEditingController _nameController;
   late TextEditingController _emailController;
+  String userRoleCurrent = 'admin';
   SingingCharacter? _character;
   PickedFile? _imageFile = PickedFile('');
   final picker = ImagePicker();
@@ -59,6 +60,11 @@ class _EditUserPageState extends State<EditUserPage> {
           ? (_character = SingingCharacter.male)
           : (_character = SingingCharacter.female);
       debugPrint(widget.argument['gender']);
+    }
+    if (widget.argument['userRole'] == 'SfTnxSIC6mitc0QilJj7') {
+      userRoleCurrent = 'admin';
+    } else {
+      userRoleCurrent = 'user';
     }
   }
 
@@ -124,13 +130,13 @@ class _EditUserPageState extends State<EditUserPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const PageHeader(
-            text: 'EDIT NOVEL',
+            text: 'EDIT USER',
           ),
           Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(0),
             constraints: const BoxConstraints(
-              maxHeight: 600,
+              maxHeight: 700,
               maxWidth: 700,
             ),
             child: Card(
@@ -289,6 +295,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                             padding: const EdgeInsets.only(
                                                 left: 8.0),
                                             child: TextField(
+                                              enabled: false,
                                               controller: _emailController,
                                               decoration: const InputDecoration(
                                                 border: InputBorder.none,
@@ -411,6 +418,53 @@ class _EditUserPageState extends State<EditUserPage> {
                                               ),
                                             ),
                                           ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20),
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(
+                                        width: 70,
+                                        child: Text(
+                                          'Role: ',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey[200]),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              value: userRoleCurrent,
+                                              items: ['user', 'admin']
+                                                  .map(
+                                                    (value) => DropdownMenuItem(
+                                                      child: Text(value),
+                                                      value: value,
+                                                    ),
+                                                  )
+                                                  .toList(),
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  userRoleCurrent =
+                                                      value.toString();
+                                                });
+                                                debugPrint(value.toString());
+                                              },
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],

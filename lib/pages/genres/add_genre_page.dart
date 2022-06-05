@@ -65,8 +65,12 @@ class _AddGenrePageState extends State<AddGenrePage> {
 
   Future<bool> addGenreToFirebae(
       String name, String desciption, String image) async {
-    return await _genreService
-        .addGenre({'name': name, 'description': desciption, 'image': image});
+    if (name == '' || desciption == '') {
+      return false;
+    } else {
+      return await _genreService
+          .addGenre({'name': name, 'description': desciption, 'image': image});
+    }
   }
 
   Future<statusUploadImageAndAddGenre> uploadImageAndAddGenreToFirebase(
@@ -405,7 +409,9 @@ class _AddGenrePageState extends State<AddGenrePage> {
                                 content: Text("Upload Image failed!")));
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Add Genre failed!")));
+                            const SnackBar(
+                                content:
+                                    Text("Add Genre failed! Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

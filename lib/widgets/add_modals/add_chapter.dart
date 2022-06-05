@@ -78,9 +78,7 @@ class _AddChapterPageState extends State<AddChapterPage> {
       child: Stack(
         children: [
           Opacity(
-            opacity: isLoading
-                ? 0.5
-                : 1, // You can reduce this when loading to give different effect
+            opacity: isLoading ? 0.5 : 1,
             child: AbsorbPointer(
               absorbing: isLoading,
               child: Column(
@@ -94,7 +92,7 @@ class _AddChapterPageState extends State<AddChapterPage> {
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(0),
                     constraints: const BoxConstraints(
-                      maxHeight: 600,
+                      maxHeight: 590,
                       maxWidth: 700,
                     ),
                     child: Card(

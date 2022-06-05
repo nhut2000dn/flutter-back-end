@@ -1,10 +1,25 @@
 enum DisplayedPage {
+  USERS,
+  USERSROLES,
+  CATEGORIES,
+  BRANDS,
+  PRODUCTS,
+  ORDERS,
   HOME,
   NOVELS,
-  USERSROLES,
-  USERS,
   AUTHORS,
   GENRES,
   SLIDESHOWS
 }
-enum Tables { users, genres, authors, usersRoles, novels, slideshows }
+enum Tables {
+  users,
+  usersRoles,
+  categories,
+  brands,
+  products,
+  orders,
+  genres,
+  authors,
+  novels,
+  slideshows
+}

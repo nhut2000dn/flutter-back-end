@@ -46,8 +46,12 @@ class _EditUserRolePageState extends State<EditUserRolePage> {
   }
 
   Future<bool> updateUserRoleToFirebase(String role, String description) async {
-    return await _userRoleServices.updateUserRole(
-        widget.argument['id'], {'role': role, 'description': description});
+    if (role == '' || description == '') {
+      return false;
+    } else {
+      return await _userRoleServices.updateUserRole(
+          widget.argument['id'], {'role': role, 'description': description});
+    }
   }
 
   @override

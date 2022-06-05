@@ -24,6 +24,7 @@ class _AddUserPageState extends State<AddUserPage> {
   final UserServices _userServices = UserServices();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  String userRoleCurrent = 'user';
 
   @override
   void dispose() {
@@ -39,8 +40,12 @@ class _AddUserPageState extends State<AddUserPage> {
 
   Future<bool> addUserToFirebase(
       String email, String password, String role) async {
-    return await _userServices.createUserWithEmailAndPassword(
-        email, password, role);
+    if (email == '' || password == '') {
+      return false;
+    } else {
+      return await _userServices.createUserWithEmailAndPassword(
+          email, password, role);
+    }
   }
 
   @override
@@ -97,6 +102,7 @@ class _AddUserPageState extends State<AddUserPage> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 8.0),
                               child: TextField(
+                                obscureText: true,
                                 controller: _passwordController,
                                 decoration: const InputDecoration(
                                     border: InputBorder.none,
@@ -108,6 +114,43 @@ class _AddUserPageState extends State<AddUserPage> {
                         ),
                         const SizedBox(
                           height: 40,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  decoration:
+                                      BoxDecoration(color: Colors.grey[200]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      value: userRoleCurrent,
+                                      items: ['user', 'admin']
+                                          .map(
+                                            (value) => DropdownMenuItem(
+                                              child: Text(value),
+                                              value: value,
+                                            ),
+                                          )
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          userRoleCurrent = value.toString();
+                                        });
+                                        debugPrint(value.toString());
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -130,7 +173,8 @@ class _AddUserPageState extends State<AddUserPage> {
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
-                                          content: Text("Add User failed!")));
+                                          content: Text(
+                                              "Add User failed! invalid form")));
                                 }
                               },
                               child: Padding(
@@ -140,7 +184,7 @@ class _AddUserPageState extends State<AddUserPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
                                     CustomText(
-                                      text: "REGISTER",
+                                      text: "ADD USER",
                                       size: 22,
                                       color: Colors.white,
                                       weight: FontWeight.bold,

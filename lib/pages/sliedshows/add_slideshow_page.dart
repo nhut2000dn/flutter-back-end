@@ -69,8 +69,16 @@ class _AddSlideshowPageState extends State<AddSlideshowPage> {
 
   Future<bool> addSlideshowToFirebae(
       String title, String image, int index, String novelId) async {
-    return await _slideshowService.addSlideshow(
-        {'title': title, 'image': image, 'index': index, 'novel_id': novelId});
+    if (title == '') {
+      return false;
+    } else {
+      return await _slideshowService.addSlideshow({
+        'title': title,
+        'image': image,
+        'index': index,
+        'novel_id': novelId
+      });
+    }
   }
 
   Future<statusUploadImageAndAddSlideshow> uploadImageAndAddGenreToFirebase(
@@ -478,7 +486,8 @@ class _AddSlideshowPageState extends State<AddSlideshowPage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Add Slideshow failed!")));
+                                content: Text(
+                                    "Add Slideshow failed! Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

@@ -1,6 +1,12 @@
 import 'package:admin_dashboard/pages/authors/add_author_page.dart';
 import 'package:admin_dashboard/pages/authors/authors_page.dart';
 import 'package:admin_dashboard/pages/authors/edit_author_page.dart';
+import 'package:admin_dashboard/pages/brands/add_brand_page.dart';
+import 'package:admin_dashboard/pages/brands/brands_page.dart';
+import 'package:admin_dashboard/pages/brands/edit_brand_page.dart';
+import 'package:admin_dashboard/pages/categories/add_category_page.dart';
+import 'package:admin_dashboard/pages/categories/categories_page.dart';
+import 'package:admin_dashboard/pages/categories/edit_category_page.dart';
 import 'package:admin_dashboard/pages/genres/add_genre_page.dart';
 import 'package:admin_dashboard/pages/genres/edit_genre_page.dart';
 import 'package:admin_dashboard/pages/genres/genres_page.dart';
@@ -8,6 +14,10 @@ import 'package:admin_dashboard/pages/login/login.dart';
 import 'package:admin_dashboard/pages/novels/add_novel_page.dart';
 import 'package:admin_dashboard/pages/novels/edit_novel_page.dart';
 import 'package:admin_dashboard/pages/novels/novels_page.dart';
+import 'package:admin_dashboard/pages/orders/orders_page.dart';
+import 'package:admin_dashboard/pages/products/add_product_page.dart';
+import 'package:admin_dashboard/pages/products/edit_product_page.dart';
+import 'package:admin_dashboard/pages/products/products_page.dart';
 import 'package:admin_dashboard/pages/registration/registration.dart';
 import 'package:admin_dashboard/pages/sliedshows/add_slideshow_page.dart';
 import 'package:admin_dashboard/pages/sliedshows/edit_slideshow_page.dart';
@@ -53,6 +63,38 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case EditUserRoute:
       return _getPageRoute(
           EditUserPage(argument: args as Map<String, dynamic>));
+    // Category
+    case CategoriesRoute:
+      return _getPageRoute(CategoriesPage());
+    case AddCategoryRoute:
+      return _getPageRoute(AddCategoryPage());
+    case EditCategoryRoute:
+      return _getPageRoute(
+          EditCategoryPage(argument: args as Map<String, dynamic>));
+    // Brand
+    case BrandsRoute:
+      return _getPageRoute(BrandsPage());
+    case AddBrandRoute:
+      return _getPageRoute(AddBrandPage());
+    case EditBrandRoute:
+      return _getPageRoute(
+          EditBrandPage(argument: args as Map<String, dynamic>));
+    // Product
+    case ProductsRoute:
+      return _getPageRoute(ProductsPage());
+    case AddProductRoute:
+      return _getPageRoute(AddProductPage());
+    case EditProductRoute:
+      return _getPageRoute(
+          EditProductPage(argument: args as Map<String, dynamic>));
+    // Order
+    case OrdersRoute:
+      return _getPageRoute(OrdersPage());
+    case AddProductRoute:
+      return _getPageRoute(AddProductPage());
+    case EditProductRoute:
+      return _getPageRoute(
+          EditProductPage(argument: args as Map<String, dynamic>));
     // Novel Router
     case NovelsRoute:
       return _getPageRoute(NovelsPage());

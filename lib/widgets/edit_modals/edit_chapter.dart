@@ -97,13 +97,13 @@ class _EditChapterPageState extends State<EditChapterPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const PageHeader(
-                    text: 'ADD CHAPTER',
+                    text: 'EDIT CHAPTER',
                   ),
                   Container(
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(0),
                     constraints: const BoxConstraints(
-                      maxHeight: 600,
+                      maxHeight: 590,
                       maxWidth: 700,
                     ),
                     child: Card(

@@ -35,6 +35,8 @@ class _ChapterTableState extends State<ChapterTable>
   List<ChapterModel> _chapters = <ChapterModel>[];
   List<ChapterModel> get chapters => _chapters;
   bool isLoading = true;
+  bool sortAscending = true;
+  String? sortColumn;
 
   @override
   bool get wantKeepAlive => true;
@@ -79,7 +81,7 @@ class _ChapterTableState extends State<ChapterTable>
     initData();
   }
 
-  updateTable(bool check) {
+  updateAddTable(bool check) {
     if (check) {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Add Chapter Succesful!")));
@@ -87,7 +89,43 @@ class _ChapterTableState extends State<ChapterTable>
       initData();
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Add Chapter failed!")));
+          .showSnackBar(const SnackBar(content: Text("Failed!")));
+    }
+  }
+
+  updateEditTable(bool check) {
+    if (check) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Update Chapter Succesful!")));
+      chaptersTableSource.clear();
+      initData();
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Failed!")));
+    }
+  }
+
+  updateDeleteTable(bool check) {
+    if (check) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Delete Chapter Succesful!")));
+      chaptersTableSource.clear();
+      initData();
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Failed!")));
+    }
+  }
+
+  onSort(String value) {
+    if (sortAscending) {
+      setState(() {
+        chaptersTableSource.sort((a, b) => b["$value"].compareTo(a["$value"]));
+      });
+    } else {
+      setState(() {
+        chaptersTableSource.sort((a, b) => a["$value"].compareTo(b["$value"]));
+      });
     }
   }
 
@@ -155,15 +193,8 @@ class _ChapterTableState extends State<ChapterTable>
                   ),
                   onTap: () async {
                     bool check =
-                        await UserServices().deleteUser(row['user_id']);
-                    if (check) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Delete User Succesful!"),
-                        ),
-                      );
-                      tablesProvider.refreshFromFirebase(Tables.users);
-                    }
+                        await ChapterService().deleteChapter(row['id']);
+                    updateDeleteTable(check);
                   },
                 ),
                 InkWell(
@@ -182,7 +213,7 @@ class _ChapterTableState extends State<ChapterTable>
                             child: EditChapterPage(
                               idChapter: value,
                               chapter: row,
-                              notifyAndRefresh: updateTable,
+                              notifyAndRefresh: updateEditTable,
                             ));
                       },
                     );
@@ -221,7 +252,7 @@ class _ChapterTableState extends State<ChapterTable>
                                     ),
                                     child: AddChapterPage(
                                       idNovel: widget.id,
-                                      notifyAndRefresh: updateTable,
+                                      notifyAndRefresh: updateAddTable,
                                     ));
                               },
                             );
@@ -264,6 +295,9 @@ class _ChapterTableState extends State<ChapterTable>
                         },
                       )
                   ],
+                  onSort: (value) => onSort(value),
+                  sortAscending: sortAscending,
+                  sortColumn: sortColumn,
                   headers: usersTableHeader,
                   source: chaptersTableSource,
                   autoHeight: false,

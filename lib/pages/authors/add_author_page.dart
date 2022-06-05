@@ -63,8 +63,12 @@ class _AddAuthorPageState extends State<AddAuthorPage> {
 
   Future<bool> addAuthorToFirebae(
       String name, String desciption, String image) async {
-    return await _authorService
-        .addAuthor({'name': name, 'description': desciption, 'avatar': image});
+    if (name == '' || desciption == '') {
+      return false;
+    } else {
+      return await _authorService.addAuthor(
+          {'name': name, 'description': desciption, 'avatar': image});
+    }
   }
 
   Future<statusUploadImageAndAddAuthor> uploadImageAndAddAuthorToFirebase(
@@ -404,7 +408,8 @@ class _AddAuthorPageState extends State<AddAuthorPage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Add Author failed!")));
+                                content:
+                                    Text("Add Author failed! Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

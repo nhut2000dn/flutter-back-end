@@ -14,9 +14,9 @@ class SideMenuTabletDesktop extends StatelessWidget {
     final AppProvider appProvider = Provider.of<AppProvider>(context);
     return Container(
       decoration: BoxDecoration(
-          color: Colors.indigo,
+          color: Colors.deepOrange,
           gradient: LinearGradient(
-            colors: [Colors.indigo, Colors.indigo.shade600],
+            colors: [Colors.deepOrange, Colors.deepOrange.shade600],
           ),
           boxShadow: [
             BoxShadow(
@@ -58,39 +58,39 @@ class SideMenuTabletDesktop extends StatelessWidget {
               },
             ),
             SideMenuItemDesktop(
-              icon: Icons.book,
-              text: 'Novels',
-              active: appProvider.currentPage == DisplayedPage.NOVELS,
-              onTap: () {
-                appProvider.changeCurrentPage(DisplayedPage.NOVELS);
-                locator<NavigationService>().navigateTo(NovelsRoute);
-              },
-            ),
-            SideMenuItemDesktop(
               icon: Icons.category,
-              text: 'Genres',
-              active: appProvider.currentPage == DisplayedPage.GENRES,
+              text: 'Categories',
+              active: appProvider.currentPage == DisplayedPage.CATEGORIES,
               onTap: () {
-                appProvider.changeCurrentPage(DisplayedPage.GENRES);
-                locator<NavigationService>().navigateTo(GenresRoute);
+                appProvider.changeCurrentPage(DisplayedPage.CATEGORIES);
+                locator<NavigationService>().navigateTo(CategoriesRoute);
               },
             ),
             SideMenuItemDesktop(
-              icon: Icons.person,
-              text: 'Authors',
-              active: appProvider.currentPage == DisplayedPage.AUTHORS,
+              icon: Icons.branding_watermark,
+              text: 'Brands',
+              active: appProvider.currentPage == DisplayedPage.BRANDS,
               onTap: () {
-                appProvider.changeCurrentPage(DisplayedPage.AUTHORS);
-                locator<NavigationService>().navigateTo(AuthorsRoute);
+                appProvider.changeCurrentPage(DisplayedPage.BRANDS);
+                locator<NavigationService>().navigateTo(BrandsRoute);
               },
             ),
             SideMenuItemDesktop(
-              icon: Icons.slideshow,
-              text: 'Slideshows',
-              active: appProvider.currentPage == DisplayedPage.SLIDESHOWS,
+              icon: Icons.list,
+              text: 'Products',
+              active: appProvider.currentPage == DisplayedPage.PRODUCTS,
               onTap: () {
-                appProvider.changeCurrentPage(DisplayedPage.SLIDESHOWS);
-                locator<NavigationService>().navigateTo(SlideshowsRoute);
+                appProvider.changeCurrentPage(DisplayedPage.PRODUCTS);
+                locator<NavigationService>().navigateTo(ProductsRoute);
+              },
+            ),
+            SideMenuItemDesktop(
+              icon: Icons.list_alt,
+              text: 'Orders',
+              active: appProvider.currentPage == DisplayedPage.ORDERS,
+              onTap: () {
+                appProvider.changeCurrentPage(DisplayedPage.ORDERS);
+                locator<NavigationService>().navigateTo(OrdersRoute);
               },
             ),
           ],

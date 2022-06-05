@@ -72,13 +72,17 @@ class _EditAuthorPageState extends State<EditAuthorPage> {
   Future<bool> editAuthorToFirebae(
       String id, String name, String description, String image) async {
     var imageObject = image != '' ? {'avatar': image} : {};
-    return await _authorService.updateAuthor(id, {
-      ...{
-        'name': name,
-        'description': description,
-      },
-      ...imageObject
-    });
+    if (name == '' || description == '') {
+      return false;
+    } else {
+      return await _authorService.updateAuthor(id, {
+        ...{
+          'name': name,
+          'description': description,
+        },
+        ...imageObject
+      });
+    }
   }
 
   Future<statusUploadImageAndEditAuthor> uploadImageAndEditAuthorToFirebase(
@@ -432,7 +436,8 @@ class _EditAuthorPageState extends State<EditAuthorPage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Update Genre failed!")));
+                                content: Text(
+                                    "Update Genre failed!, Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

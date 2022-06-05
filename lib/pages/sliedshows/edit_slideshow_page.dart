@@ -74,10 +74,14 @@ class _EditSlideshowPageState extends State<EditSlideshowPage> {
   Future<bool> updateSlideshowToFirebae(
       String id, String title, String image, int index, String novelId) async {
     var imageObject = image != '' ? {'image': image} : {};
-    return await _slideshowService.updateSlideshow(id, {
-      ...{'title': title, 'index': index, 'novel_id': novelId},
-      ...imageObject
-    });
+    if (title == '') {
+      return false;
+    } else {
+      return await _slideshowService.updateSlideshow(id, {
+        ...{'title': title, 'index': index, 'novel_id': novelId},
+        ...imageObject
+      });
+    }
   }
 
   Future<statusUploadImageAndUpdateSlideshow>
@@ -510,7 +514,8 @@ class _EditSlideshowPageState extends State<EditSlideshowPage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Update Slideshow failed!")));
+                                content: Text(
+                                    "Update Slideshow failed! Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

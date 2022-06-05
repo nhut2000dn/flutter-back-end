@@ -73,13 +73,17 @@ class _EditGenrePageState extends State<EditGenrePage> {
   Future<bool> editGenreToFirebae(
       String id, String name, String description, String image) async {
     var imageObject = image != '' ? {'image': image} : {};
-    return await _genreService.updateGenre(id, {
-      ...{
-        'name': name,
-        'description': description,
-      },
-      ...imageObject
-    });
+    if (name == '' || description == '') {
+      return false;
+    } else {
+      return await _genreService.updateGenre(id, {
+        ...{
+          'name': name,
+          'description': description,
+        },
+        ...imageObject
+      });
+    }
   }
 
   Future<statusUploadImageAndEditGenre> uploadImageAndEditGenreToFirebase(
@@ -433,7 +437,8 @@ class _EditGenrePageState extends State<EditGenrePage> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: Text("Update Genre failed!")));
+                                content:
+                                    Text("Update Genre failed! Invalid form")));
                       }
                       setState(() {
                         _isLoading = false;

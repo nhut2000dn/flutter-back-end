@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 import 'package:admin_dashboard/models/users.dart';
 import 'package:admin_dashboard/services/users_novels.dart';
+import 'package:admin_dashboard/services/users_products.dart';
 import 'package:flutter/material.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -52,7 +53,7 @@ class _AddUserNovelsState extends State<AddUserNovels> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
-      width: 300,
+      width: 400,
       child: Stack(
         children: [
           Opacity(
@@ -67,14 +68,14 @@ class _AddUserNovelsState extends State<AddUserNovels> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const PageHeader(
-                      text: 'ADD GENRE',
+                      text: 'ADD FAVOURITER',
                     ),
                     Container(
                       margin: const EdgeInsets.all(10),
                       padding: const EdgeInsets.all(0),
                       constraints: const BoxConstraints(
                         maxHeight: 190,
-                        maxWidth: 300,
+                        maxWidth: 400,
                       ),
                       child: Card(
                         elevation: 1,
@@ -168,9 +169,9 @@ class _AddUserNovelsState extends State<AddUserNovels> {
                                               child: FlatButton(
                                                 onPressed: () async {
                                                   bool check =
-                                                      await UsersNovelsService()
+                                                      await UsersProductsService()
                                                           .addUserNovel({
-                                                    'novel_id': widget.id,
+                                                    'product_id': widget.id,
                                                     'user_id':
                                                         userCurrent.userId,
                                                   });

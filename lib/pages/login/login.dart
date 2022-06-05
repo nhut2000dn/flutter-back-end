@@ -18,8 +18,8 @@ class LoginPage extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          gradient:
-              LinearGradient(colors: [Colors.blue, Colors.indigo.shade600])),
+          gradient: LinearGradient(
+              colors: [Colors.orange.shade200, Colors.orange.shade500])),
       child: authProvider.status == Status.Authenticating
           ? Loading()
           : Scaffold(
@@ -90,19 +90,6 @@ class LoginPage extends StatelessWidget {
                         const SizedBox(
                           height: 5,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: const [
-                              CustomText(
-                                text: "Forgot password?",
-                                size: 16,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                        ),
                         const SizedBox(
                           height: 40,
                         ),
@@ -110,7 +97,7 @@ class LoginPage extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Container(
                             decoration:
-                                const BoxDecoration(color: Colors.indigo),
+                                const BoxDecoration(color: Colors.orange),
                             child: FlatButton(
                               onPressed: () async {
                                 if (!await authProvider.signIn()) {
@@ -144,30 +131,6 @@ class LoginPage extends StatelessWidget {
                         ),
                         const SizedBox(
                           height: 40,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const CustomText(
-                                text: "Do not have an account? ",
-                                size: 16,
-                                color: Colors.grey,
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    locator<NavigationService>()
-                                        .globalNavigateTo(
-                                            RegistrationRoute, context);
-                                  },
-                                  child: const CustomText(
-                                    text: "Sign up here. ",
-                                    size: 16,
-                                    color: Colors.indigo,
-                                  )),
-                            ],
-                          ),
                         ),
                       ],
                     ),

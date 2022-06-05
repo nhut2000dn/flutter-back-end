@@ -39,6 +39,8 @@ class MyApp extends StatelessWidget {
 }
 
 class AppPagesController extends StatelessWidget {
+  const AppPagesController({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
@@ -48,7 +50,6 @@ class AppPagesController extends StatelessWidget {
       future: initialization,
       builder: (context, snapshot) {
         // return LayoutTemplate();
-        // // Check for errors
         if (snapshot.hasError) {
           return Scaffold(
             body: Column(
@@ -58,7 +59,6 @@ class AppPagesController extends StatelessWidget {
           );
         }
 
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           debugPrint(authProvider.status.toString());
           switch (authProvider.status) {
@@ -73,7 +73,6 @@ class AppPagesController extends StatelessWidget {
           }
         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
         return Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,

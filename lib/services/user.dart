@@ -80,7 +80,7 @@ class UserServices {
   Future<UserModel> getAdminById(String id) => firebaseFiretore
           .collection(usersCollection)
           .where('user_id', isEqualTo: id)
-          .where('user_role_id', isEqualTo: 'SfTnxSIC6mitc0QilJj7')
+          .where('user_role_id', isEqualTo: 'UHltaCSxPrY9iCHEDi34')
           .get()
           .then((document) {
         return UserModel.fromSnapshot(document.docs[0]);
